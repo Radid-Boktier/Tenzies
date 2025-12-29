@@ -1,11 +1,6 @@
-export default function Die({ value, clickDdice, id, backgroundColor }) {
+export default function Die({ value, clickDdice, backgroundColor }) {
   return (
-    <button
-      className="dice"
-      onClick={clickDdice}
-      id={id}
-      style={{ backgroundColor }}
-    >
+    <button className="dice" onClick={clickDdice} style={{ backgroundColor }}>
       {value}
     </button>
   );
