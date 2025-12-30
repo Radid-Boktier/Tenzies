@@ -15,7 +15,7 @@ The game is structured with **component-based architecture**, **React hooks**, a
 
 ### 🌐 Live Demo
 🚀 **Deployed on Vercel**  
-[Play Tenzies](tenzies-dice-game.vercel.app)
+[Play Tenzies](https://tenzies-dice-game.vercel.app/)
 
 ---
 ## 🚀 Features
