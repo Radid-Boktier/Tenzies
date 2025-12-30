@@ -9,7 +9,7 @@ The game is structured with **component-based architecture**, **React hooks**, a
 
 ## 📷 Preview
 
-![Photo Editor Preview](https://github.com/Radid-Boktier/Photo-Editor/blob/main/Image-editor.png?raw=true)
+![Photo Editor Preview](https://github.com/Radid-Boktier/Tenzies/blob/main/src/assets/tenzies.png)
 
 ---
 
