@@ -3,16 +3,29 @@ import { useEffect, useRef, useState } from 'react';
 import Confetti from 'react-confetti';
 import './App.css';
 import Die from './components/Die';
+import StopWatch from './components/StopWatch';
 function App() {
   const [dice, setDice] = useState(() => generateAllNewDice());
+  const [time, setTime] = useState(0);
+  const [running, setRunning] = useState(false);
 
   const gameWon = dice.every((d) => d.value == dice[0].value && d.isHeld);
 
   const buttonRef = useRef(null);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    if (!running) return;
+    intervalRef.current = setInterval(() => {
+      setTime((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(intervalRef.current);
+  }, [running]);
 
   useEffect(() => {
     if (gameWon) {
-      buttonRef.current.focus();
+      clearInterval(intervalRef.current);
+      buttonRef.current?.focus();
     }
   }, [gameWon]);
 
@@ -25,7 +38,11 @@ function App() {
   }
 
   function rollDice() {
+    if (!running) setRunning(true);
+
     if (gameWon) {
+      setTime(0);
+      setRunning(false);
       setDice(generateAllNewDice());
       return;
     }
@@ -44,7 +61,7 @@ function App() {
       return newDice;
     });
   }
-  // console.log(dice);
+  // console.log(gameWon);
   return (
     <main className="main">
       {gameWon && <Confetti />}
@@ -58,6 +75,7 @@ function App() {
         Roll until all dice are the same. Click each die to freeze it at its
         current value between rolls.
       </p>
+      <StopWatch time={time} />
       <div className="dice-container">
         {dice.map((value, index) => (
           <Die
@@ -70,7 +88,7 @@ function App() {
         ))}
       </div>
       <button id="roller-btn" ref={buttonRef} onClick={rollDice}>
-        {!gameWon ? 'Roll Dice' : 'New Game'}
+        {!running ? 'Start' : running && !gameWon ? 'Roll Dice' : 'New Game'}
       </button>
     </main>
   );
